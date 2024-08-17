@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fortawesome/react-fontawesome": "^0.2.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.3.28",
     "next": "14.2.5",
     "next-auth": "^4.24.7",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animated": "^1.1.2"
   },
   "devDependencies": {
     "@types/node": "^20",
