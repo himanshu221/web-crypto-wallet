@@ -1,9 +1,10 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { GoogleButton } from "./UI/GoogleBtn"
 
 export const AppBar = () => {
+    
     return (
         <div className="h-16 bg-[#f2f9fd] absolute top-0 left-0 right-0 px-24 py-2 flex items-center justify-between">
             <div className="flex font-small justify-center items-center gap-2">

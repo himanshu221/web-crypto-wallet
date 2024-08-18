@@ -1,4 +1,4 @@
-"use client";
+"use cleint"
 import Image from 'next/image'
 import googleImg from '@/public/google.svg'
 export const GoogleButton = ({ children, action} : {
