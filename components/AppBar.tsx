@@ -1,5 +1,7 @@
-import { GoogleButton } from "./UI/GoogleBtn"
+"use client";
 
+import { signIn } from "next-auth/react";
+import { GoogleButton } from "./UI/GoogleBtn"
 
 export const AppBar = () => {
     return (
@@ -13,7 +15,9 @@ export const AppBar = () => {
                 </div>
             </div>
             <div className="my-2">
-                <GoogleButton>
+                <GoogleButton action={() => signIn('google',{
+                    callbackUrl: "http://localhost:3000/home"
+                })}>
                     Login
                 </GoogleButton>
             </div>

@@ -1,3 +1,6 @@
+"use client";
+
+import { signIn } from 'next-auth/react';
 import { HeroCard } from './HeroCard'
 import { GoogleButton } from './UI/GoogleBtn'
 
@@ -13,7 +16,9 @@ export const Hero = () => {
                         Create a frictionless wallet with just a Google Account.
                     </div>
                     <div className='py-20 lg:py-10 flex justify-center items-center lg:flex-none lg:justify-start'>
-                        <GoogleButton>
+                        <GoogleButton action={() => signIn('google',{
+                            callbackUrl: "http://localhost:3000/home"
+                        })}>
                             Sign up with Google
                         </GoogleButton>
                     </div>
