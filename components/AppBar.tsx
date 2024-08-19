@@ -2,9 +2,10 @@
 
 import { signIn, useSession } from "next-auth/react";
 import { GoogleButton } from "./UI/GoogleBtn"
+import { MenuButton } from "./UI/MenuBtn";
 
 export const AppBar = () => {
-    
+    const { status } = useSession();
     return (
         <div className="h-16 bg-[#f2f9fd] absolute top-0 left-0 right-0 px-24 py-2 flex items-center justify-between">
             <div className="flex font-small justify-center items-center gap-2">
@@ -16,11 +17,16 @@ export const AppBar = () => {
                 </div>
             </div>
             <div className="my-2">
-                <GoogleButton action={() => signIn('google',{
-                    callbackUrl: "http://localhost:3000/home"
-                })}>
-                    Login
-                </GoogleButton>
+                {
+                    status === "authenticated" ? 
+                        <MenuButton onClick={() => "Menu clicked"}/> : 
+                        <GoogleButton action={() => signIn('google',{
+                            callbackUrl: "http://localhost:3000/home"
+                        })}>
+                            Login
+                        </GoogleButton>
+
+                }
             </div>
         </div>
     ) 
