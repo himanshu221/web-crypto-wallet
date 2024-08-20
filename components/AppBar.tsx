@@ -14,7 +14,7 @@ export const AppBar = () => {
                 </div>
                 <div className="text-3xl text-[#007dc1]">
                     NoteCase
-                </div>
+                </div>yh
             </div>
             <div className="my-2">
                 {
