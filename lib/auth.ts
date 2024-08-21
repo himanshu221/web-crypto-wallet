@@ -1,10 +1,12 @@
-import GoogleProvider from "next-auth/providers/google";
 
-export const NEXT_AUTH_CONFIG = {
-    providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ""
-        })
-    ]
+import Google from "next-auth/providers/google"
+ 
+export const authConfig = {
+  providers: [Google({
+    clientId: process.env.AUTH_GOOGLE_ID!,
+    clientSecret: process.env.AUTH_GOOGLE_SECRET! 
+  })],
+  pages: {
+    newUser: "/cred"
   }
+}

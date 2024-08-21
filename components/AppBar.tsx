@@ -1,5 +1,4 @@
 "use client";
-
 import { signIn, useSession } from "next-auth/react";
 import { GoogleButton } from "./UI/GoogleBtn"
 import { MenuButton } from "./UI/MenuBtn";
@@ -14,15 +13,15 @@ export const AppBar = () => {
                 </div>
                 <div className="text-3xl text-[#007dc1]">
                     NoteCase
-                </div>yh
+                </div>
             </div>
             <div className="my-2">
                 {
                     status === "authenticated" ? 
                         <MenuButton onClick={() => "Menu clicked"}/> : 
-                        <GoogleButton action={() => signIn('google',{
-                            callbackUrl: "http://localhost:3000/home"
-                        })}>
+                        <GoogleButton action={() => {signIn("google",{
+                            callbackUrl : "/home"
+                        })}}>
                             Login
                         </GoogleButton>
 

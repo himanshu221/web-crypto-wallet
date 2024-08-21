@@ -1,16 +1,14 @@
 'use client';
-
-import { useSession } from "next-auth/react"
-
+import { useCurrentUser } from "../../hooks/use-current-user";
 
 export default function Home() {
-    const { data } = useSession();
+    const user = useCurrentUser();
 
-    if(data) {
+    if(user) {
         return (
             <div className="h-100vh lg:h-screen w-full flex justify-center items-center bg-[#f2f9fd]">
             {
-                data.user?.email
+                user.image
             }
             </div>
         )
