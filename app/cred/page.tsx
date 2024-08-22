@@ -1,3 +1,5 @@
+"use client"
+
 import { useCurrentUser } from "../../hooks/use-current-user";
 import * as React from 'react';
 

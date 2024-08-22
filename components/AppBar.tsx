@@ -20,7 +20,7 @@ export const AppBar = () => {
                     status === "authenticated" ? 
                         <MenuButton onClick={() => "Menu clicked"}/> : 
                         <GoogleButton action={() => {signIn("google",{
-                            callbackUrl : "/home"
+                            callbackUrl : "/cred"
                         })}}>
                             Login
                         </GoogleButton>

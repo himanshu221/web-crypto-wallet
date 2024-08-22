@@ -8,7 +8,7 @@ export default function App() {
   const router = useRouter();
 
   if(status === "authenticated"){
-    router.push('/home');
+    router.push('/cred');
   }
 
   return (
