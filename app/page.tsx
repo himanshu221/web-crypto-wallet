@@ -8,11 +8,11 @@ export default function App() {
   const router = useRouter();
 
   if(status === "authenticated"){
-    router.push('/cred');
+    router.push('/warning');
   }
 
   return (
-    <main className="h-100vh lg:h-screen w-full flex justify-center items-center bg-[#f2f9fd] px-24 pt-16 pb-20 lg:pb-0">
+    <main className="h-screen overflow-y-auto w-full flex justify-center items-center bg-[#f2f9fd] px-24 pt-16 pb-20 lg:pb-0">
       <div className="h-full">
         <Hero />
       </div>

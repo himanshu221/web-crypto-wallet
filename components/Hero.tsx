@@ -16,7 +16,7 @@ export const Hero = () => {
                     </div>
                     <div className='py-20 lg:py-10 flex justify-center items-center lg:flex-none lg:justify-start'>
                         <GoogleButton action={() => { signIn('google',{
-                            callbackUrl: "/home"
+                            callbackUrl: "/warning"
                         })}}>
                             Sign up with Google
                         </GoogleButton>
