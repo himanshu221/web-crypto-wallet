@@ -6,6 +6,8 @@ import warning from "@/public/warning.svg"
 import lock from "@/public/lock.svg"
 import Image from "next/image"
 import { StandardButton } from "@/components/UI/StandardBtn"
+import { useRecoilState } from "recoil";
+import { warningAtom } from "../store/atoms/warning"
 
 export default function Warning() {
     const user = useCurrentUser();
@@ -14,6 +16,7 @@ export default function Warning() {
         router.push("/");
         return;
     }
+    const [checkbox, setCheckbox] = useRecoilState(warningAtom);
 
     return <div className="h-screen w-full flex justify-center items-start bg-[#f2f9fd] overflow-y-auto pt-32">
             <div className="flex flex-col gap-3 justify-center items-center  lg:w-[800px]  md:w-[700px] w-[500px] px-10">
@@ -45,11 +48,14 @@ export default function Warning() {
                         </div>
                     </div>
                     <div className="flex items-center text-white mb-5">
-                        <input onClick={} type="checkbox" value="" className="w-10 h-10 text-[#007dc1] bg-white rounded-lg" />
+                        <input onClick={() => setCheckbox(!checkbox)} type="checkbox" value="" className="w-10 h-10 text-[#007dc1] bg-white rounded-lg" />
                         <label className="ml-5 text-lg font-semibold text-[#16303f]">I understand that I am responsible for saving my secret phrase, and that is is the only way to recover my wallet.</label>
                     </div>
                     <div className="px-20 h-12">
-                        <StandardButton onClick={() => {}}>Next</StandardButton>
+                        <StandardButton active={checkbox} onClick={() => {
+                            setCheckbox(true)
+                            router.push("/secret")
+                        }}>Next</StandardButton>
                     </div>
                 </div>
             </div>

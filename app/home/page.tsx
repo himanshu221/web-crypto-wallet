@@ -1,8 +1,14 @@
 'use client';
+import { useRouter } from "next/navigation";
 import { useCurrentUser } from "../../hooks/use-current-user";
 
 export default function Home() {
     const user = useCurrentUser();
+    const router = useRouter();
+    if(!user){
+        router.push("/");
+        return;
+    }
 
     if(user) {
         return (
