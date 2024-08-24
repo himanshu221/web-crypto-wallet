@@ -60,8 +60,8 @@ export default function Warning() {
                         </div>
                     </div>
                     <div className="flex items-center text-white mb-5">
-                        <input onClick={() => setCheckbox(!checkbox)} type="checkbox" value="" className="w-10 h-10 text-[#007dc1] bg-white rounded-lg" />
-                        <label className="ml-5 text-lg font-semibold text-[#16303f]">I understand that I am responsible for saving my secret phrase, and that is is the only way to recover my wallet.</label>
+                        <input onClick={() => setCheckbox(!checkbox)} type="checkbox" className="w-10 h-10 text-[#007dc1] bg-white rounded-lg" />
+                        <label className="ml-5 text-md font-semibold text-[#16303f]">I understand that I am responsible for saving my secret phrase, and that is is the only way to recover my wallet.</label>
                     </div>
                     <div className="px-20 h-12">
                         <StandardButton active={checkbox} onClick={() => {
