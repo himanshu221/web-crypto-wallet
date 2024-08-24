@@ -31,7 +31,7 @@ export default function Warning() {
         </div>
     }
     return <div className="h-screen w-full flex justify-center items-start bg-[#f2f9fd] overflow-y-auto pt-32">
-            <div className="flex flex-col gap-3 justify-center items-center  lg:w-[800px]  md:w-[700px] w-[500px] px-10">
+            <div className="flex flex-col gap-3 justify-center items-center  lg:w-[800px]  md:w-[700px] w-[500px] px-10 animate-fade-up">
                 <div className="text-4xl text-center font-bold text-[#16303f]">
                     Secret Recovery Phrase Warning
                 </div>

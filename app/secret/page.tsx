@@ -1,21 +1,36 @@
 "use client";
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { useRouter } from "next/navigation";
 import { StandardButton } from "../../components/UI/StandardBtn"
 import { useRecoilState, useRecoilValue } from "recoil";
-import { mnemonicAtom, savedCheckAtom } from "../store/atoms/onboarding"
+import { copyAtom, mnemonicAtom, savedCheckAtom } from "../store/atoms/onboarding"
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import Link from 'next/link';
 import { Loader } from '../../components/UI/Loader';
+import { time } from 'console';
 
 export default function Secret() {
     const { status } = useSession();
     const router = useRouter(); 
     const mnemonic = useRecoilValue(mnemonicAtom);
     const [checkbox, setCheckbox] = useRecoilState(savedCheckAtom);
+    const [copy, setCopy ] = useRecoilState(copyAtom);
+    let timeout = useRef<NodeJS.Timeout>();
 
+    async function handleCopy() {
+        try{
+            if(timeout.current) clearTimeout(timeout.current);
+            await navigator.clipboard.writeText(mnemonic.toString());
+            setCopy(true);
+            timeout.current = setTimeout(() => {
+                setCopy(false);
+            }, 2000)
+        }catch(e) {
+            console.error("Failed to copy")
+        }
+    }
     useEffect(() => {
         if(status === "unauthenticated"){
             router.push('/');
@@ -31,7 +46,7 @@ export default function Secret() {
     
 
     return <div className="h-screen w-full flex justify-center items-start bg-[#f2f9fd] overflow-y-auto pt-24">
-            <div className="flex flex-col gap-3 justify-center items-center  lg:w-[800px]  md:w-[700px] w-[500px] px-10">
+            <div className="flex flex-col gap-3 justify-center items-center  lg:w-[800px]  md:w-[700px] w-[500px] px-10 animate-fade-up">
                 <div className="text-4xl text-center font-bold text-[#16303f]">
                     Secret Recovery Phrase
                 </div>
@@ -42,7 +57,7 @@ export default function Secret() {
                     Read the warning again
                 </Link>
                 <div className="grid grid-row px-2 py-2 gap-4 justify-center items-center mb-10">
-                    <div className="rounded-lg bg-white pt-5 px-5 shadow-[0px_0px_40px_rgba(0,0,0,0.06)]">
+                    <div onClick={handleCopy} className="rounded-lg  cursor-pointer bg-white pt-5 px-5 shadow-[0px_0px_40px_rgba(0,0,0,0.06)]">
                         <div>
                             <div className='grid grid-cols-3 gap-2 border-b pb-5'>
                                 {
@@ -55,7 +70,7 @@ export default function Secret() {
                                 }       
                             </div>
                             <div className='flex justify-center items-center py-2 text-[#526a7b]' >
-                                Click anywhere on this card to copy
+                                { copy ? "Copied!" : "Click anywhere on this card to copy"}
                             </div>
                         </div>
                     </div>

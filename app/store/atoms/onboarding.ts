@@ -23,3 +23,8 @@ export const mnemonicAtom  = atom<string[]>({
         }
     })
 })
+
+export const copyAtom = atom<boolean>({
+    key: "copyAtom",
+    default: false
+})
