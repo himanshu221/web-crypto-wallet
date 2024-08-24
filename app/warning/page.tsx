@@ -6,13 +6,15 @@ import lock from "@/public/lock.svg"
 import Image from "next/image"
 import { StandardButton } from "@/components/UI/StandardBtn"
 import { useRecoilState } from "recoil";
-import { warningAtom } from "../store/atoms/warning"
+import { warningAtom } from "../store/atoms/onboarding"
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+import { Loader } from '../../components/UI/Loader';
 
 export default function Warning() {
     const { status } = useSession();
     const router = useRouter();
+    const [checkbox, setCheckbox] = useRecoilState(warningAtom);
 
     useEffect(() => {
         if(status !== "authenticated"){
@@ -21,8 +23,13 @@ export default function Warning() {
         }
     },[status, router])
 
-    const [checkbox, setCheckbox] = useRecoilState(warningAtom);
 
+
+    if(status === "loading"){
+        return <div className="h-screen w-full flex justify-center items-center bg-[#f2f9fd] overflow-y-auto pt-32">
+            <Loader />
+        </div>
+    }
     return <div className="h-screen w-full flex justify-center items-start bg-[#f2f9fd] overflow-y-auto pt-32">
             <div className="flex flex-col gap-3 justify-center items-center  lg:w-[800px]  md:w-[700px] w-[500px] px-10">
                 <div className="text-4xl text-center font-bold text-[#16303f]">
