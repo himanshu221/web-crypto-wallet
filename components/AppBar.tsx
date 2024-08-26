@@ -18,7 +18,7 @@ export const AppBar = () => {
             </div>
         </div>
     }
-
+    console.log(status)
     return (
         <div className="h-16 bg-[#f2f9fd] absolute top-0 left-0 right-0 px-24 py-2 flex items-center justify-between z-10">
             <div className="flex font-small justify-center items-center gap-2">
@@ -33,9 +33,7 @@ export const AppBar = () => {
                 {
                     status === "authenticated" ? 
                         <MenuButton onClick={() => "Menu clicked"}/> : 
-                        <GoogleButton action={() => {signIn("google",{
-                            callbackUrl : "/warning"
-                        })}}>
+                        <GoogleButton action={() => {signIn("google")}}>
                             Login
                         </GoogleButton>
 

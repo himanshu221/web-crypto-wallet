@@ -5,15 +5,18 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function App() {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if(status === "authenticated"){
-      router.push('/warning');
-      return;
+    if (status === "authenticated" && session?.user) {
+      if (!session.user.onboarded) {
+        router.push("/warning");
+      } else {
+        router.push("/dashboard");
+      }
     }
-  },[status, router])
+  }, [session, status, router]);
 
   return (
     <main className="h-screen overflow-y-auto w-full flex justify-center items-center bg-[#f2f9fd] px-24 pt-16 pb-20 lg:pb-0">

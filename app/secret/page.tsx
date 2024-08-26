@@ -9,10 +9,11 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import Link from 'next/link';
 import { Loader } from '../../components/UI/Loader';
-import { time } from 'console';
+import axios from 'axios';
+import { Session } from 'inspector';
 
 export default function Secret() {
-    const { status } = useSession();
+    const { status, data: session, update} = useSession();
     const router = useRouter(); 
     const mnemonic = useRecoilValue(mnemonicAtom);
     const [checkbox, setCheckbox] = useRecoilState(savedCheckAtom);
@@ -31,12 +32,30 @@ export default function Secret() {
             console.error("Failed to copy")
         }
     }
-    useEffect(() => {
-        if(status === "unauthenticated"){
-            router.push('/');
-            return;
+
+    async function updateAccount() {
+
+        const resp = await axios.post('/api/user', {
+            data: {
+                mnemonic: mnemonic.toString(),
+                email: session?.user.email,
+            }
+        })
+
+        if(resp.status === 200){
+            console.log("Account created successfully")
         }
-    },[status, router])
+    }
+    useEffect(() => {
+
+        if (status === "unauthenticated") {
+          router.push("/");
+        } else if (status === "authenticated" && session?.user) {
+          if (session.user.onboarded) {
+            router.push("/dashboard");
+          }
+        }
+      }, [session, status, router]);
 
     if(status === "loading"){
         return <div className="h-screen w-full flex justify-center items-center bg-[#f2f9fd] overflow-y-auto pt-32">
@@ -79,10 +98,12 @@ export default function Secret() {
                         <label className="ml-5 text-md font-semibold text-[#16303f]">I saved my secret recovery phrase</label>
                     </div>
                     <div className="px-20 h-12">
-                        <StandardButton active={checkbox} onClick={() => {
-                            setCheckbox(true)
-                            router.push("/home")
-                        }}>Next</StandardButton>
+                        <StandardButton active={checkbox} onClick={async () => {
+                            setCheckbox(true);
+                            await updateAccount();
+                            update({onboarded: true})
+                            router.push("/dashboard")
+                        }}>Create Account</StandardButton>
                     </div>
                 </div>
             </div>

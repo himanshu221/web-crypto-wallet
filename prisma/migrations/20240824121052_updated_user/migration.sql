@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "SolWalletCount" SET DEFAULT 0,
+ALTER COLUMN "EthWalletCount" SET DEFAULT 0;

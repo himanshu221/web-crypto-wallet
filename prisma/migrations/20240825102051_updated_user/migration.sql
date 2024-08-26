@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "mnemonic" DROP NOT NULL,
+ALTER COLUMN "SolWalletCount" DROP NOT NULL,
+ALTER COLUMN "EthWalletCount" DROP NOT NULL;

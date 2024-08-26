@@ -12,18 +12,19 @@ import { useEffect } from "react";
 import { Loader } from '../../components/UI/Loader';
 
 export default function Warning() {
-    const { status } = useSession();
+    const { status, data: session } = useSession();
     const router = useRouter();
     const [checkbox, setCheckbox] = useRecoilState(warningAtom);
 
     useEffect(() => {
-        if(status !== "authenticated"){
-            router.push('/');
-            return;
+        if (status === "unauthenticated") {
+          router.push("/");
+        } else if (status === "authenticated" && session?.user) {
+          if (session.user.onboarded) {
+            router.push("/dashboard");
+          }
         }
-    },[status, router])
-
-
+      }, [session, status, router]);
 
     if(status === "loading"){
         return <div className="h-screen w-full flex justify-center items-center bg-[#f2f9fd] overflow-y-auto pt-32">

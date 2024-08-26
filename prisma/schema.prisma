@@ -14,5 +14,32 @@ datasource db {
 }
 
 model User {
-  id     String @id @default(cuid())
+  id               String    @id @default(cuid())
+  name             String?
+  email            String    @unique
+  image            String?
+  mnemonic         String?
+  onboarded        Boolean?  @default(false)
+  SolWalletCount   Int?          @default(0)
+  EthWalletCount   Int?       @default(0) 
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  wallets          Wallet[]
+}
+
+model Wallet {
+  id               String @id @default(cuid())
+  name             String
+  type             WalletType
+  publicKey        String
+  privateKey       String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  userId           String
+  owner            User @relation(fields: [userId], references: [id])
+}
+
+enum WalletType {
+  SOL
+  ETH
 }
